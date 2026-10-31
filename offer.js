@@ -52,7 +52,14 @@
     html += '<h2 class="center">' + md(cmp.title).replace(/<b>/, '<b class="acc">') + '</h2><div class="redpill">' + esc(cmp.discountPillLabel) + " " + t + '</div><div class="cmp"><div><b>' + esc(cmp.leftTitle) + "</b>" + H.pic(cmp.leftImage) + "<ul>" + cmp.leftBullets.map(function (x) { return '<li class="x">✕ ' + esc(x) + "</li>"; }).join("") + '</ul></div><div class="g"><b>' + esc(cmp.rightTitle) + " ⚡</b>" + H.pic(cmp.rightImage) + "<ul>" + cmp.rightBullets.map(function (x) { return '<li class="v">✓ ' + esc(x) + "</li>"; }).join("") + "</ul></div></div>";
     html += '<div class="dbox">' + co("RECIBIR MI PLAN") + "</div>";
     // Franco 2.2 (7): testimonios
-    html += '<h2>' + esc(s.reviews.title) + '</h2><div class="revs">' + s.reviews.items.map(function (r) { return '<div class="rev">' + H.pic(r.image) + '<p class="res">' + esc(r.result) + "</p><b>" + esc(r.name) + "</b><p>" + esc(r.text) + "</p></div>"; }).join("") + "</div>";
+    // Franco 2.7 (L 4.4 ≈16:07 "Yo tengo dos videos. En cada embudo"): 2 vídeos IA arriba de los testimonios, como el funnel 1.
+    var VIDS = C.VIDEOS || [];
+    html += '<h2>' + esc(s.reviews.title) + '</h2>';
+    if (VIDS.length) html += '<div class="vids">' + VIDS.map(function (x) {
+      return '<figure class="vid"><video data-vid muted loop playsinline preload="none" poster="' + esc(x.poster) + '" aria-label="Video testimonio de ' + esc(x.name) + '"><source src="' + esc(x.src) + '" type="video/mp4"></video>' +
+        '<button type="button" class="vid-snd" aria-label="Ver el video de ' + esc(x.name) + ' con sonido">🔊 Escuchar</button><figcaption><b>' + esc(x.name) + "</b> · " + esc(x.city) + "</figcaption></figure>";
+    }).join("") + "</div>";
+    html += '<div class="revs">' + s.reviews.items.map(function (r) { return '<div class="rev">' + H.pic(r.image) + '<p class="res">' + esc(r.result) + "</p><b>" + esc(r.name) + "</b><p>" + esc(r.text) + "</p></div>"; }).join("") + "</div>";
     if (C.SHOW_TESTIMONIAL_NOTE) html += '<p class="note-t">Testimonios ilustrativos. Los resultados varían de persona a persona.</p>';
     html += '<h2 class="center">' + esc(s.resultsTitle) + '</h2><div class="timerpill">' + ICON.timer + "Esta oferta termina en: " + t + "</div>" + priceRow;
     html += '<div class="dbox"><p>🎁 ' + esc(s.discountBoxLabel) + "</p>" + co("RECIBIR MI PLAN · " + money(C.PRICE)) + '</div><p class="secure">' + ICON.lock + "Compra segura · Satisfacción garantizada</p>";
@@ -89,6 +96,26 @@
         } catch (e) {}
         H.beacon(76, "offer", "checkout_click");
         H.pixel("InitiateCheckout", { value: C.PRICE, currency: C.CURRENCY, content_name: C.PRODUCT });
+      });
+    });
+    // Vídeos testimonio: autoplay sin sonido al verse (IntersectionObserver); "Escuchar" = desde el inicio con sonido.
+    var vids = document.querySelectorAll("video[data-vid]");
+    var io = vids.length && "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { if (v.preload !== "auto") v.preload = "auto"; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (v.muted) v.pause();
+      });
+    }, { threshold: 0.5 }) : null;
+    vids.forEach(function (v) {
+      if (io) io.observe(v);
+      v.parentNode.querySelector(".vid-snd").addEventListener("click", function () {
+        vids.forEach(function (o) { if (o !== v) { o.muted = true; o.parentNode.classList.remove("live"); } });
+        v.muted = false; v.loop = false; v.controls = true; v.currentTime = 0;
+        v.parentNode.classList.add("live");
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+        H.beacon(76, "offer", "video_play");
+        H.pixel("ViewContent", { content_name: "video_testimonio" });
       });
     });
     // Raspadita: solo la primera vez

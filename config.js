@@ -30,5 +30,11 @@ window.PILATES_CONFIG = {
 
   TIMER_SECONDS: 600,                     // Franco L 4.2: 600 s, "Esta oferta termina en: [time]"
   GUARANTEE_DAYS: 90,                     // igual que el original
-  SHOW_TESTIMONIAL_NOTE: true             // "Testimonios ilustrativos" hasta tener reseñas reales
+  SHOW_TESTIMONIAL_NOTE: true,            // "Testimonios ilustrativos" hasta tener reseñas reales
+
+  // 2 vídeos testimonio hechos con IA gratis (testimonios-ia/README.md). Van en la oferta, arriba de los testimonios.
+  VIDEOS: [
+    { name: "Patricia", city: "Guadalajara, Jal.", src: "video/testimonio-1.mp4", poster: "video/testimonio-1.jpg" },
+    { name: "Leticia", city: "San Antonio, TX", src: "video/testimonio-2.mp4", poster: "video/testimonio-2.jpg" }
+  ]
 };
