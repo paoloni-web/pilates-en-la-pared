@@ -10,13 +10,13 @@ window.PILATES_CONFIG = {
   PRICE_MXN_NOTE: "unos 170 pesos",       // Franco L 4.2: moneda siempre visible
 
   // Checkout KashPay (2 order bumps + embudo upsell 47 → downsell 23). Ver KASHPAY.md.
-  CHECKOUT_URL: "https://pay.sheridanmktmng.com/checkout/PENDIENTE",
+  CHECKOUT_URL: "https://pay.sheridanmktmng.com/checkout/checkout-1793482278655",
   // Respaldo sin bumps (Whop directo, plan oculto):
   CHECKOUT_FALLBACK: "https://whop.com/checkout/plan_bEyGp4Rxi4u2h",
 
   // Upsell / downsell one-click de KashPay (tokens del embudo). Respaldo: planes ocultos de Whop.
-  KP_UPSELL: "",
-  KP_DOWNSELL: "",
+  KP_UPSELL: "https://pay.sheridanmktmng.com/u/e08547cb21dde755",
+  KP_DOWNSELL: "https://pay.sheridanmktmng.com/u/ffc44ab0cd5669d2",
   UPSELL_URL: "https://whop.com/checkout/plan_QgLqQz7XaADrX",   // 90 Días · USD 47
   DOWNSELL_URL: "https://whop.com/checkout/plan_mdhRt0kkq01k1", // 90 Días solo rutinas · USD 23
 
