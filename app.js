@@ -48,7 +48,11 @@
   var fmtW = function (vkg) { return S.unit === "lb" ? Math.round(vkg * 2.2046) + " lb" : Math.round(vkg) + " kg"; };
   function bmi() { var h = S.h, w = S.w; if (!h || !w) return null; var m = h / 100; return Math.round((kg(w) / (m * m)) * 10) / 10; }
   function bmiCat(b) { return b < 18.5 ? "bajo" : b < 25 ? "normal" : b < 30 ? "sobrepeso" : "alto"; }
-  function firstName() { return String(S.name || "").trim().split(/\s+/)[0] || ""; }
+  // Primer nombre con mayúscula inicial: "  maría ángeles" → "María"; "JOSÉ" → "José".
+  function firstName() {
+    var w = String(S.name || "").replace(/[<>]/g, "").trim().split(/\s+/)[0].slice(0, 20);
+    return w ? w.toLowerCase().replace(/(^|[-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }) : "";
+  }
   var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   function goalDate() {
     var lose = Math.max(0, kg(S.w || 0) - kg(S.g || 0));
@@ -238,11 +242,11 @@
       '<p class="center foot2">' + md(s.footnote) + "</p></main>" + cta(s.ctaLabel || "Continuar", "data-next");
   };
   R["sp-name"] = function (s) {
-    return '<main class="pad"><h1>' + esc(s.title) + '</h1><label class="field"><small>Tu nombre</small><input id="nm" autocomplete="given-name" maxlength="40" value="' + esc(S.name || "") + '"></label></main>' + cta(s.ctaLabel, "disabled data-name");
+    return '<main class="pad"><h1>' + esc(s.title) + '</h1><label class="field"><small>Tu nombre</small><input id="nm" type="text" autocomplete="given-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="40" value="' + esc(S.name || "") + '"></label></main>' + cta(s.ctaLabel, "disabled data-name");
   };
   function projection(s, small) {
     var gd = goalDate();
-    return '<h1 class="center">' + esc(firstName()) + esc(s.titleAfterName) + '<br><span class="acc">' + (S.g ? fmtW(kg(S.g)) : "tu meta") + " para el</span> " + gd.txt + "</h1>" + (small ? "" : '<p class="center sub">' + esc(s.subtitle) + "</p>") + '<div class="proj">' + SVG.projection(gd) + "</div>";
+    return '<h1 class="center">' + esc(firstName() || "Amiga") + esc(s.titleAfterName) + '<br><span class="acc">' + (S.g ? fmtW(kg(S.g)) : "tu meta") + " para el</span> " + gd.txt + "</h1>" + (small ? "" : '<p class="center sub">' + esc(s.subtitle) + "</p>") + '<div class="proj">' + SVG.projection(gd) + "</div>";
   }
   R["sp-plan-projection"] = function (s) {
     return '<main class="pad">' + projection(s) + '<ul class="bul">' + s.bullets.map(function (b) { return "<li>" + (ICON[b.icon] || ICON.spark) + "<span>" + esc(b.text) + "</span></li>"; }).join("") + "</ul></main>" + cta(s.ctaLabel, "data-next", "green");
@@ -329,7 +333,7 @@
   function email(s) {
     var i = $("#em"), b = $("#emgo");
     var ok = function () { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(i.value.trim()); };
-    i.oninput = function () { b.disabled = !ok(); };
+    i.oninput = i.onchange = function () { b.disabled = !ok(); }; // change: autocompletar de iOS
     i.onkeydown = function (e) { if (e.key === "Enter" && ok()) b.click(); };
     b.disabled = !ok();
     b.onclick = function () {
@@ -340,10 +344,19 @@
       next();
     };
   }
+  // iPhone: el teclado tapa los position:fixed; mientras se escribe, sube el botón (.foot) por encima del teclado.
+  if (window.visualViewport) {
+    var vv = window.visualViewport, kb = function () {
+      var a = document.activeElement, typing = a && a.tagName === "INPUT" && a.type !== "range" && a.type !== "checkbox";
+      document.documentElement.style.setProperty("--kb", (typing ? Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)) : 0) + "px");
+    };
+    vv.addEventListener("resize", kb); vv.addEventListener("scroll", kb);
+    document.addEventListener("focusin", kb); document.addEventListener("focusout", function () { setTimeout(kb, 60); });
+  }
   function nameStep() {
     var i = $("#nm"), b = $("[data-name]");
     var ok = function () { return i.value.trim().length >= 2; };
-    i.oninput = function () { b.disabled = !ok(); };
+    i.oninput = i.onchange = function () { b.disabled = !ok(); }; // change: autocompletar de iOS
     i.onkeydown = function (e) { if (e.key === "Enter" && ok()) b.click(); };
     b.disabled = !ok();
     b.onclick = function () { if (!ok()) return; S.name = i.value.trim().slice(0, 40); save(); next(); };

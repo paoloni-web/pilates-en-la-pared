@@ -34,7 +34,7 @@ p{margin:0 0 12px}
 .bars i{flex:1;height:4px;border-radius:4px;background:#DADAE3;overflow:hidden}
 .bars b{display:block;height:100%;background:var(--pri);border-radius:4px;transition:width .4s}
 /* pie con CTA */
-.foot{position:fixed;left:0;right:0;bottom:0;padding:14px 20px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:5}
+.foot{position:fixed;left:0;right:0;bottom:var(--kb,0px);padding:14px 20px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:5}
 .foot .btn{max-width:440px;margin:0 auto}
 .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;border-radius:14px;background:var(--pri);color:#fff;font-weight:700;font-size:16px;text-decoration:none;text-align:center;padding:12px 18px;transition:transform .1s,opacity .2s}
 .btn:active{transform:scale(.98)}
