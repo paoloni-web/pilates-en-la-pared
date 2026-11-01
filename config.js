@@ -29,7 +29,7 @@ window.PILATES_CONFIG = {
   META_PIXEL_ID: "",
 
   TIMER_SECONDS: 600,                     // Franco L 4.2: 600 s, "Esta oferta termina en: [time]"
-  GUARANTEE_DAYS: 90,                     // igual que el original
+  GUARANTEE_DAYS: 28,                     // atada al plazo de la promesa (Franco L 2.3: "Si en 21 días no ves resultados…")
   SHOW_TESTIMONIAL_NOTE: true,            // "Testimonios ilustrativos" hasta tener reseñas reales
 
   // 2 vídeos testimonio hechos con IA gratis (testimonios-ia/README.md). Van en la oferta, arriba de los testimonios.

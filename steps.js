@@ -1811,7 +1811,7 @@ window.PILATES_STEPS = [
    "oldPerDay": "{{ANCHOR_DAY}}",
    "perDay": "{{PRICE_DAY}}"
   },
-  "guaranteeLink": "GARANTÍA DE REEMBOLSO DE 90 DÍAS",
+  "guaranteeLink": "GARANTÍA DE 28 DÍAS: SI NO VES RESULTADOS, TE DEVOLVEMOS CADA CENTAVO",
   "discountBoxLabel": "75% DE DESCUENTO APLICADO",
   "ctaLabel": "RECIBIR MI PLAN",
   "disclaimer": "Pago único: sin mensualidades y sin cobros recurrentes. Recibes acceso de por vida a tu plan personalizado en cuanto se confirma el pago.",
@@ -1866,13 +1866,13 @@ window.PILATES_STEPS = [
    "Hoy recibirás un único cargo de {{PRICE}}: pago único, sin mensualidades.",
    "Acceso de por vida: pagas una vez y usas tu plan para siempre.",
    "Sin renovación automática y sin cobros futuros.",
-   "Garantía de reembolso de 90 días: si no quedas satisfecha, te devolvemos tu dinero.",
+   "Garantía de 28 días: si en 28 días no ves resultados, te devolvemos cada centavo, sin preguntas.",
    "Tu compra está sujeta a nuestros <a href=\"terminos.html\" target=\"_blank\">Términos</a> y a nuestro <a href=\"privacidad.html\" target=\"_blank\">Aviso de privacidad</a>"
   ],
   "guarantee": {
    "image": "svg:moneyback",
-   "title": "Garantía de reembolso de 90 días",
-   "body": "Tu éxito es nuestra prioridad. Si no quedas satisfecha con los resultados, solo avísanos dentro de los 90 días después del cobro **y te devolvemos todo, sin preguntas**. Más detalles en nuestra **Política de reembolso**.",
+   "title": "Garantía de 28 días",
+   "body": "Haz tu rutina contra la pared cada día. **Si en 28 días no ves resultados, te devolvemos cada centavo que pagaste, sin hacer ningún tipo de pregunta.** Solo responde al correo de tu compra. Más detalles en nuestra **Política de reembolso**.",
    "links": [
     "Aviso de privacidad",
     "Política de reembolso",

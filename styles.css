@@ -227,7 +227,14 @@ p{margin:0 0 12px}
 .stack li .ic{color:var(--green)}
 .stack small{display:block;color:var(--ink2);font-size:13px}
 .stack s{color:var(--mute);font-weight:700}
-.tot{text-align:center;margin:14px 0 0;font-size:17px}.tot b{color:var(--green);font-size:22px}
+.tot{text-align:center;margin:14px 0 0;font-size:17px;line-height:1.45}.tot b{color:var(--green);font-size:22px;white-space:nowrap}
+.gline{display:flex;gap:8px;align-items:flex-start;margin:12px 0 0;padding:10px 12px;border-radius:12px;background:#EAF6EF;font-size:14.5px;line-height:1.4}
+.gline svg{flex:none;width:20px;height:20px;color:var(--green)}
+.intro{text-align:center;font-size:14px;color:var(--mute);margin:10px 0 0}
+/* Promesa de Franco (L 2.3) */
+.promise{margin:12px 0 4px;padding:16px 18px;border-radius:16px;background:#fff;border:2px solid var(--pri);box-shadow:0 10px 24px -18px rgba(124,128,234,.9)}
+.promise-k{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.promise p{margin:0;font-size:17.5px;font-weight:600;line-height:1.4;color:var(--ink)}
 .today-only{color:var(--red);font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin:22px 0 8px}
 .timerpill,.redpill{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;font-weight:700;border-radius:12px;padding:13px;margin:8px 0 16px}
 .timerpill .ic{width:20px;height:20px}

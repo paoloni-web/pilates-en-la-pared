@@ -16,6 +16,10 @@
     ["Guía de alimentación sin dietas estrictas", "Ideas de platillos y lista del súper para acompañar el reto", 17],
   ];
   var total = STACK.reduce(function (s, x) { return s + x[2]; }, 0);
+  // Franco L 2.3: promesa = resultado deseado + en cuánto tiempo + sin lo que no quieren hacer (números, plazo y método con nombre).
+  var PLAN = "Reto Pilates en la Pared 28 Días";
+  var PROMISE = "tonifica abdomen, glúteos y piernas y mejora tu postura en 28 días, con 10 a 20 minutos al día y solo una pared de tu casa, sin equipo, sin gimnasio y sin dietas estrictas.";
+  var GUARANTEE = "Si en 28 días no ves resultados, te devolvemos cada centavo que pagaste, sin hacer ningún tipo de pregunta.";
 
   window.PILATES_OFFER = function (s, H) {
     var esc = H.esc, md = H.md, fill = H.fill, ICON = H.ICON, S = H.S, money = H.money;
@@ -32,6 +36,7 @@
     // Franco 2.2 (1): titular + mockup de la app
     html += '<p class="center brandline">' + esc(C.BRAND.toUpperCase()) + '</p><h1 class="center big">' + (name ? esc(name) + ", tu" : "Tu") + ' plan de <span class="acc">Pilates en la Pared</span> personalizado está listo</h1>';
     html += '<figure class="mock"><img src="img/app-mockup.jpg" alt="Tu plan de Pilates en la Pared dentro de una app en tu celular" onerror="this.parentNode.style.display=\'none\'"></figure>';
+    html += '<div class="promise"><span class="promise-k">Lo que vas a lograr</span><p><b>' + esc(PLAN) + ":</b> " + esc(PROMISE) + "</p></div>";
     // Original: meta con fecha + gráfico
     html += H.projection({ titleAfterName: s.titleAfterName }, true);
     // Franco 2.2 (2): Hoy / En 28 días con barras rojo/verde
@@ -40,8 +45,9 @@
     html += '<div class="alert">⚠️ <span><b>Tu descuento está reservado solo por 10 minutos.</b> Si sales de esta página, el precio vuelve a ' + money(C.ANCHOR) + ".</span></div>";
     html += '<h2 class="center offt">' + esc(s.offerTitle) + '<br><span class="red">' + esc(s.offerTitleAccent) + "</span></h2>";
     // Franco 2.2 (4): stack con valor por ítem
-    html += '<div class="card stack"><h3>Tu plan incluye</h3><ul>' + STACK.map(function (x) { return "<li>" + ICON.check + "<div><b>" + esc(x[0]) + "</b><small>" + esc(x[1]) + "</small></div><s>$" + x[2] + "</s></li>"; }).join("") +
-      '</ul><p class="tot">Valor total: <s>$' + total + " USD</s><br>Hoy: <b>" + money(C.PRICE) + "</b></p></div>";
+    html += '<div class="card stack"><h3>' + esc(PLAN) + ' incluye:</h3><ul>' + STACK.map(function (x) { return "<li>" + ICON.check + "<div><b>" + esc(x[0]) + "</b><small>" + esc(x[1]) + "</small></div><s>$" + x[2] + "</s></li>"; }).join("") +
+      '</ul><p class="tot">Todo por un valor total de <s>$' + total + " USD</s> que solo por hoy vas a encontrar por <b>" + money(C.PRICE) + "</b></p>" +
+      '<p class="gline">' + ICON.shield + "<span>" + esc(GUARANTEE) + '</span></p><p class="intro"><b>Precio introductorio por tiempo limitado.</b> Si sales de esta página, vuelve a ' + money(C.ANCHOR) + ".</p></div>";
     // Franco 2.2 (5-6): "Oferta válida solo por hoy" + temporizador
     html += '<p class="center today-only">Oferta válida solo por hoy</p><div class="timerpill">' + ICON.timer + "Esta oferta termina en: " + t + "</div>";
     html += priceRow + '<p class="center gl"><a href="#garantia">' + esc(s.guaranteeLink) + "</a></p>";
